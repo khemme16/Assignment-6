@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/kahem/OneDrive/CIS150/SANDBOX/movie.sqlite" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1368"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainDirector"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Actor" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="62"/><column index="2" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Director" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="79"/><column index="2" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Movie" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="56"/><column index="2" value="300"/><column index="3" value="40"/><column index="4" value="47"/><column index="5" value="58"/><column index="6" value="55"/><column index="7" value="101"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Oscar" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="65"/><column index="2" value="72"/><column index="3" value="177"/><column index="4" value="40"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Person" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="56"/><column index="2" value="168"/><column index="3" value="73"/><column index="4" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT Movie.name, Movie.year FROM Movie
+INNER JOIN Actor ON Actor.Movie_id = Movie.id
+INNER JOIN Person ON Person.id = Actor.actor_id
+WHERE Person.name LIKE 'Geena%';
+
+
+SELECT MIN(Movie.runtime) 'Shortest runtime', MAX(Movie.runtime) 'Maximum runtime', AVG(Movie.runtime) 'Average runtime' FROM Movie
+WHERE Movie.rating = 'R';
+
+
+SELECT Oscar.type, Oscar.year, Movie.name FROM Oscar
+INNER JOIN Movie ON movie_id;
+
+
+SELECT pob, COUNT (*) 'COUNT' FROM Person
+WHERE pob is NOT NULL
+GROUP by pob
+HAVING COUNT (*) &gt;1;
+
+
+SELECT COUNT (*)
+FROM Movie
+WHERE Movie.id is NOT IN Oscar;
+
+
+SELECT NAME, Count (Actor.actor_id) FROM Person
+LEFT OUTER JOIN Actor ON Actor.id = Person.id
+WHERE Person.pob LIKE '%Sweden'
+GROUP by Person.name
+ORDER BY COUNT (Person.name) DESC, Person.name ASC;
+
+
+SELECT COUNT (DISTINCT(director_id))'R-rated Director_id' FROM Director
+INNER JOIN Movie ON Movie_id = Director.movie_id
+WHERE Movie.rating = 'R';
+
+
+UPDATE Movie
+SET rating = 'PG-13'
+WHERE name LIKE '%Raiders%';
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
